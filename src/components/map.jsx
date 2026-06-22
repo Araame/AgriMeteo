@@ -1,53 +1,27 @@
 import React, { useState } from "react";
+import { regionsData } from "../coordonnees";
 
-export default function CarteSenegal() {
+export default function MapSenegal() {
+  const [regionActiveId, setRegionActiveId] = useState(null);
 
-  return (      
-      <svg xmlns="http://w3.org" viewBox="0 0 800 650" width="100%" height="100%">
-        <g>
-          {/* Saint-Louis */}
-          <path id="SN-SL"  d="M439.4,48.2 L445.6,44.9 L465.1,51 L484.5,50.1 L490.9,53.4 L511.4,50.8 L524.4,59.3 L543.8,61.9 L552,69.5 L565,65.3 L574,74 L571,85 L547.4,98.6 L511,114.7 L480.9,114.7 L468.6,117.6 L454.3,124.6 L437.2,126.7 L426.6,121.7 L417,125 L399.7,117.8 L386.4,124.1 L360.7,114.2 L350.2,95 L347,73.5 L348.6,56.8 L360.1,53.9 L378.8,55.9 L404.1,54.7 Z" />
-          
-          {/* Matam */}
-          <path id="SN-MT" d="M574,74 L587.4,73.7 L603,81.1 L627.5,82.4 L644,91.8 L649.8,110.1 L677.2,129 L692.1,133 L713.8,154 L727.8,181 L719.5,214.3 L708,225.1 L671.1,234.3 L654.5,224.2 L633.3,222 L620.2,207.2 L609.4,204.3 L599,191.1 L588,194 L576,178 L568.1,173.8 L566,157 L552.1,154.6 L536,158.4 L511,114.7 L547.4,98.6 Z" />
-          
-          {/* Louga */}
-          <path id="SN-LG" d="M348.6,56.8 L347,73.5 L350.2,95 L360.7,114.2 L386.4,124.1 L399.7,117.8 L417,125 L426.6,121.7 L437.2,126.7 L454.3,124.6 L468.6,117.6 L480.9,114.7 L511,114.7 L536,158.4 L524.3,168 L496.3,169.5 L477.5,178.6 L453.6,180.2 L442,168.1 L418.1,165 L404.1,173.2 L383.5,166 L361,168 L320.1,148 L293.4,142.1 L270.5,116 L298,90 Z" />
-          
-          {/* Dakar */}
-          <path id="SN-DK" d="M192.1,200.5 L198,198 L203.2,204.1 L200,211 L187.1,209 Z" />
-          
-          {/* Thiès */}
-          <path id="SN-TH" d="M270.5,116 L293.4,142.1 L320.1,148 L310.2,176.4 L289.4,188 L271.2,185.1 L253,197 L226.4,191.1 L203.2,204.1 L198,198 L232,148 Z" />
-          
-          {/* Diourbel */}
-          <path id="SN-DB"  d="M320.1,148 L361,168 L368.1,189.5 L346,204.3 L314.2,200 L310.2,176.4 Z" />
-          
-          {/* Fatick */}
-          <path id="SN-FK"  d="M253,197 L271.2,185.1 L289.4,188 L310.2,176.4 L314.2,200 L346,204.3 L351.1,215 L328.6,226.7 L329,241 L315.3,251.3 L274.1,250 L256,268 L241,262 L248.3,241.1 L234,228 Z" />
-          
-          {/* Kaolack */}
-          <path id="SN-KL" d="M351.1,215 L368.1,189.5 L383.5,166 L404.1,173.2 L418.1,165 L433.2,185 L427.6,211.5 L446,227 L444.1,248.5 L401.3,255 L354.1,252.1 L329,241 L328.6,226.7 Z" />
-          
-          {/* Kaffrine */}
-          <path id="SN-KD" d="M418.1,165 L442,168.1 L453.6,180.2 L477.5,178.6 L496.3,169.5 L524.3,168 L552.1,154.6 L566,157 L568.1,173.8 L576,178 L588,194 L568.2,234.1 L553.1,245 L527,242.3 L511.4,264 L482.3,266.1 L444.1,248.5 L446,227 L427.6,211.5 L433.2,185 Z" />
-          
-          {/* Tambacounda */}
-          <path id="SN-TC" d="M588,194 L599,191.1 L609.4,204.3 L620.2,207.2 L633.3,222 L654.5,224.2 L671.1,234.3 L708,225.1 L719.5,214.3 L748.2,239 L743,265 L764.1,288 L749.5,334 L731,348 L711.2,338.4 L693,356.1 L677.4,342 L659.1,347 L650,335.2 L622.3,341 L588.5,315 L567.1,318.6 L549,301 L541.3,278.4 L511.4,264 L527,242.3 L553.1,245 L568.2,234.1 Z" />
-          
-          {/* Kédougou */}
-          <path id="SN-KE" d="M659.1,347 L677.4,342 L693,356.1 L711.2,338.4 L731,348 L719.1,399 L734,424.1 L711.3,445 L692.5,431 L671,446.3 L654,432 L649.2,398.4 L658,375.1 Z" />
-          
-          {/* Kolda */}
-          <path id="SN-KO" d="M441,313.5 L462.1,310 L483.5,321.4 L504,312.1 L549,301 L567.1,318.6 L588.5,315 L622.3,341 L650,335.2 L659.1,347 L658,375.1 L649.2,398.4 L621.1,395 L594.3,411.3 L583,398 L568.4,402.1 L551,385 L516.3,382.4 L502,394 L474.1,386 L471,354.1 L446.2,352 Z" />
-          
-          {/* Sédhiou */}
-          <path id="SN-SE"  d="M366.1,326.5 L391,323.4 L409.5,335.1 L441,313.5 L446.2,352 L471,354.1 L474.1,386 L453.5,391.2 L431,380 L401.4,386.4 L378,371.1 Z" />
-          
-          {/* Ziguinchor */}
-          <path id="SN-ZG" d="M301,332.1 L338.4,329 L366.1,326.5 L378,371.1 L356.3,374 L334,364.1 L309.1,369 Z" />
-        </g>
+  const activeRegion = regionsData.find((region) => region.id === regionActiveId);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", fontFamily: "sans-serif" }}>
+      
+      <div style={{ height: "40px", fontSize: "1.5rem", fontWeight: "bold", margin: "10px 0", color: "#333" }}>
+        {activeRegion ? activeRegion.name : "Survolez une région"}
+      </div>
+
+      <svg baseProfile="tiny" fill="#565d56" height="736" stroke="#ffffff"strokeLinecap="round"
+           strokeLinejoin="round"strokeWidth=".5"version="1.2" viewBox="0 0 1000 736" width="1000" xmlns="http://www.w3.org/2000/svg">
+            <g id="features">
+                {regionsData.map((region) => (
+                    <path key={region.id} id={region.id} name={region.name} d={region.d}
+                    style={{ fill: regionActiveId === region.id ? "#053510" : "#565d56", transition: "fill 0.2s ease",}} onMouseEnter={() => setRegionActiveId(region.id)} onMouseLeave={() => setRegionActiveId(null)}/>
+                ))}
+            </g>
       </svg>
+    </div>
   );
 }
-
