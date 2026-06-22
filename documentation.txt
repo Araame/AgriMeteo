@@ -1,0 +1,80 @@
+Documentation 
+
+1. Carte interactive 
+Recuperation du code svg de la carte du Senegal 
+Ensuite utilisation de viewBox pour afficher toute la carte et la rendre responsive su rtous type d'ecran
+Path utilise un id pour l'affichage de la region  
+Ce code SVG représente une **carte vectorielle du Sénégal** divisée par ses **14 régions administratives** (niveau 1). Contrairement à une image raster (comme un JPG), ce format utilise des mathématiques pour dessiner les formes, ce qui permet un agrandissement sans perte de qualité et une personnalisation facile via le code.
+
+Voici une décomposition détaillée des éléments clés :
+
+### 1. Structure Globale et Style
+L'élément racine `<svg>` définit le canevas et le style par défaut :
+*   **Dimensions** : `width="1000"` et `height="736"` (pixels ou unités arbitraires).
+*   **Couleurs par défaut** :
+    *   `fill="#6f9c76"` : Un vert sage pour le fond des régions.
+    *   `stroke="#ffffff"` : Des contours blancs (`#ffffff`) pour séparer visuellement les régions.
+    *   `stroke-width=".5"` : Une ligne de bordure très fine.
+*   **Projection** : La page source mentionne une **projection Mercator**, adaptée pour la visualisation web.
+
+### 2. Les Régions (`<g id="features">`)
+Le groupe `<g id="features">` contient tous les `<path>` qui dessinent les frontières des régions. Chaque région est identifiée par un attribut `id` et un `name`.
+
+| ID (`id`) | Nom (`name`) | Description du code |
+| :--- | :--- | :--- |
+| `SNKE` | **Kédougou** | Région du sud-est, forme allongée. |
+| `SNTC` | **Tambacounda** | La plus grande région, à l'est. |
+| `SNKD` | **Kolda** | Au sud, bordant la Guinée et le Mali. |
+| `SNSE` | **Sédhiou** | Au sud-ouest de Kolda. |
+| `SNZG` | **Ziguinchor** | Au sud-ouest (Basse-Casamance). |
+| `SNSL` | **Saint-Louis** | Au nord, sur le fleuve Sénégal. |
+| `SNMT` | **Matam** | Au nord-est. |
+| `SNKA` | **Kaffrine** | Centre-sud. |
+| `SNKL` | **Kaolack** | Centre, sur le fleuve Saloum. |
+| `SNFK` | **Fatick** | Centre-ouest. |
+| `SNLG` | **Louga** | Centre-nord. |
+| `SNTH` | **Thiès** | Centre-ouest, proche de Dakar. |
+| `SNDK` | **Dakar** | La péninsule à l'extrême ouest (capitale). |
+| `SNDB` | **Diourbel** | Centre, entre Louga et Kaolack. |
+
+**Analyse technique des `<path>` :**
+L'attribut `d` contient une suite de commandes (M = move to, L = line to, C = cubic curve, etc.) qui tracent le périmètre.
+*Exemple extrait pour Kédougou (`SNKE`) :*
+```xml
+<path d="M877.5 539.4l0.3 1.6 1.3 0.4 ..." id="SNKE" name="Kédougou">
+```
+Cela signifie : "Déplace-toi au point (877.5, 539.4), puis trace des lignes relatives..."
+
+### 3. Points d'Intérêt et Labels
+Le SVG inclut deux groupes supplémentaires pour la lisibilité et l'interactivité potentielle :
+
+**A. Points génériques (`<g id="points">`)**
+Trois cercles placés à des coordonnées spécifiques. Ils semblent correspondre à des coordonnées géographiques (probablement latitude/longitude encodées dans la classe CSS).
+```xml
+<circle class="12.52...|-17.22..." cx="90.9" cy="669.2" id="0"></circle>
+<!-- Probablement Dakar ou un point de repère océanique -->
+```
+
+**B. Points de Label (`<g id="label_points">`)**
+C'est la partie la plus utile pour l'interface utilisateur. Chaque région a un point de centrage (un `<circle>` invisible ou discret) qui sert d'ancre pour afficher le nom de la région lors du survol ou du clic.
+*   `class="Kédougou"` : Le nom de la région.
+*   `cx` et `cy` : La position exacte où le texte devrait être rendu.
+
+Exemple pour la région de **Dakar** :
+```xml
+<circle class="Dakar" cx="88.4" cy="325.8" id="SNDK"></circle>
+```
+
+### 4. Potentiel d'Interaction
+Ce code est conçu pour être **interactif** (comme mentionné dans la page source "Customize this map") :
+1.  **Sélection** : Grâce aux IDs uniques (`id="SNDK"`), un script JavaScript peut cibler une région spécifique.
+2.  **Couleurs dynamiques** : Comme la couleur de remplissage (`fill`) est définie dans le style ou l'attribut, une application peut changer la couleur d'une région si elle est sélectionnée (ex: `fill="#ff0000"` pour Dakar).
+3.  **Tooltips** : Les éléments dans `<g id="label_points">` permettent d'afficher facilement le nom de la région au survol de la souris.
+
+### Résumé pour un développeur
+Si vous voulez utiliser cette carte :
+*   **Données** : Vous avez déjà la topologie des 14 régions.
+*   **Style** : Le vert `#6f9c76` est la couleur de base. Modifiez l'attribut `fill` dans le CSS pour changer le thème.
+*   **Logique** : Utilisez les `id` (ex: `SNDB`) pour attacher des événements JavaScript (`onclick`, `onmouseover`) afin d'afficher des données spécifiques à chaque région.
+
+
