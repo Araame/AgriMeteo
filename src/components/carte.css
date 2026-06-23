@@ -1,0 +1,51 @@
+/* Conteneur principal flexible */
+.carte-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px; /* Largeur maximale calquée sur votre viewBox */
+  margin: 0 auto;
+}
+
+/* Enveloppe responsive pour le SVG */
+.svg-wrapper {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 736; /* Conserve le ratio exact du viewBox */
+  background-color: #f5f5f5; /* Fond léger optionnel pour voir la zone du SVG */
+  border-radius: 8px;
+}
+
+/* Style de base pour chaque région */
+.region-path {
+  fill: #6f9c76; /* Votre couleur verte d'origine */
+  cursor: pointer;
+  transition: fill 0.2s ease, opacity 0.2s ease;
+}
+
+/* 1. AU SURVOL : Teinte accentuée et opacité réduite */
+.region-path:hover {
+  fill: #070f08; /* Vert plus foncé (teinte accentuée) */
+  opacity: 0.85;  /* Opacité réduite */
+}
+
+/* 2. ÉTAT SÉLECTIONNÉ : Couleur différente qui persiste */
+.region-path.selected {
+  fill: #e67e22; /* Orange vif (ou toute couleur contrastante de votre choix) */
+}
+
+/* Optionnel : Style du panneau pour le bouton de fermeture */
+.info-panel {
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.info-panel button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+
