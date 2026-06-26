@@ -114,3 +114,26 @@ Puisque ce code est dans un composant React (`CarteSenegal`), voici comment vous
 | `name` | `<path>` | `Kédougou` | **Donnée** : nom lisible pour l'utilisateur ou les infobulles. |
 
 Ce code est une base excellente pour une carte interactive. Pour aller plus loin, vous pourriez ajouter une librairie comme `d3.js` ou gérer l'état `useState` dans React pour changer les couleurs en fonction de données (ex: population, PIB par région).
+
+
+
+
+
+
+DashBoard contextuel 
+Une barre laterale doit s'ouvrir au click d'une region avec ses informations correspondantes 
+Pour cela, j'ai d'abord créé un component DashBoard qui communique avec App.jsx pour surveiller et ecouter le click sur une region et par consequent pouvoir s'ouvrir et afficher les
+donnnes qui concernent la region clique
+
+La fonction Dashboard recevra des props en parametres que sont, les donnees meteoroligiques a afficher  qui viennnet de l'API, l'etat du spinner loading( true ou false), les erreurs à afficher à l interieur  du sidebar, l'etat du sidebar (estSidebarOuvert true ou false)
+
+On va gerer 3 cas :
+Cas ou le sdonnnees meteorologiques se chargent : appel API : on affiche spinner
+Cas ou il y a erreurs pendant la récupération des donnees depuis l'API : on affiche l'erreur
+Cas ou il y a les donnees meteorologiques : on affiche les données
+Quand l'utilisateur clique sur le bouton fermer, le sidebar doit se fermer
+
+Dans tous les 3 cas, on va faire du conditional rendering pour voir si le sidebar doit etre ouvert donc appeler l'etat du sidebar  pour voir si l'utilisateur a cliqué sur une region ou non pour eviter de l'ouvrir alors que l'utilisateur n'a pas cliqué sur une region
+
+
+Puis on va importer le dashboard dans App JSX pour qu'ils puissent recevoir les donnees de l'API et les donnees passées en props

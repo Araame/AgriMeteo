@@ -1,4 +1,12 @@
+# Documentation
 documentation
+
+
+# Variables d'environnement
+.env
+
+
+
 # Logs
 logs
 *.log
