@@ -1,33 +1,35 @@
-import { useState } from "react"
+// import { useState } from "react"
+// import './carte.css';
+// import { AfficheMeteo } from "./meteo";
+// import { useMeteo } from "../hooks/logiqueMeteo";
+
+// export default function CarteSenegal(){
+//         const { meteo, loading, error, utilisationMeteo } = useMeteo();
+
+//         const [IdRegionSelectionnee, SetIdRegionSelectionnee]=useState(null)
+
+//         const RegionClick=(id)=>{
+//             if (IdRegionSelectionnee===id){
+//                 SetIdRegionSelectionnee(null)
+//             }else{
+//                 SetIdRegionSelectionnee(id)
+//             }
+
+//              const region = Regions.find(r => r.id === id);
+//             if (region) {
+//             const nomRegion = region.name
+//             utilisationMeteo(nomRegion);
+//         }
+//     };
+
+import React, { useState } from 'react';
+import { useMeteo } from "../hooks/logiqueMeteo";
 import './carte.css';
 import { AfficheMeteo } from "./meteo";
-import { useMeteo } from "../hooks/logiqueMeteo";
 
-export default function CarteSenegal(){
-        const { meteo, loading, error, utilisationMeteo } = useMeteo();
+  // carte.jsx - VERSION SIMPLIFIÉE
 
-        const [IdRegionSelectionnee, SetIdRegionSelectionnee]=useState(null)
-
-        const RegionClick=(id)=>{
-            if (IdRegionSelectionnee===id){
-                SetIdRegionSelectionnee(null)
-            }else{
-                SetIdRegionSelectionnee(id)
-            }
-
-             const region = Regions.find(r => r.id === id);
-            if (region) {
-            const nomRegion = region.name
-            utilisationMeteo(nomRegion);
-        }
-    };
-
-        
-
-       
-  
-
-const Regions=[
+ export const Regions=[
            
   
 {
@@ -115,81 +117,53 @@ const Regions=[
 },
 ]
 
-    return(
-        <div className="carte-container">
-            <div className="svg-wrapper">
-                <AfficheMeteo meteo={meteo} loading={loading} error={error} />
+export default function CarteSenegal({ selectedRegion, onRegionSelect }) {
+ 
+  //  Reçoit selectedRegion et onRegionSelect en props
 
-          
-
-          
-           <svg baseProfile="tiny" 
-           fill="#6f9c76" 
-           height="736" 
-            stroke="#ffffff" 
-            strokeLinecap="round" 
-             strokeLinejoin="round" 
-            strokeWidth=".5" 
-            version="1.2" 
-            viewBox="0 0 1000 736" 
-            width="1000" 
-           xmlns="http://www.w3.org/2000/svg">
-           
-
-            <g id="features">
-                {Regions.map((reg)=>{
-                    return(
-                    <path
-                   d= {reg.d}
-                   key= {reg.id }
-                   id= {reg.id }
-                   name= {reg.name}
-                   className={`region-path ${IdRegionSelectionnee === (reg.id )? 'selected' : ''}`}
-                    onClick={() => RegionClick(reg.id)} 
-
-                />)
-                })}
-                
-           </g>
-            </svg>
-        </div>
-        </div>
-    )
-
-
+  const RegionClick = (id) => {
+    if (selectedRegion === id) {
+      onRegionSelect(null);
+    } else {
+      onRegionSelect(id);
+    }
   };
 
+  // ... ton tableau Regions ici ...
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  return (
+    <div className="carte-container">
+      <div className="svg-wrapper">
+        <svg 
+          baseProfile="tiny" 
+          fill="#6f9c76" 
+          height="736" 
+          stroke="#ffffff" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          strokeWidth=".5" 
+          version="1.2" 
+          viewBox="0 0 1000 736" 
+          width="1000" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="features">
+            {Regions.map((reg) => (
+              <path
+                d={reg.d}
+                key={reg.id}
+                id={reg.id}
+                name={reg.name}
+                className={`region-path ${selectedRegion === reg.id ? 'selected' : ''}`}
+                onClick={() => RegionClick(reg.id)}
+              />
+            ))}
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+}
 
 
 

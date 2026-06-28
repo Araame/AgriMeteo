@@ -1,0 +1,62 @@
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.chart-header h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1rem;
+}
+
+.chart-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+.chart-stats span {
+  background: #f7fafc;
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: #4a5568;
+}
+
+.chart-loading,
+.chart-empty {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  color: #718096;
+}
+
+.chart-footer {
+  margin-top: 12px;
+  text-align: center;
+  color: #a0aec0;
+  font-size: 0.8rem;
+}
