@@ -1,51 +1,42 @@
 import React, { useState } from "react";
-import MapSenegal from "./components/map"
+import MapSenegal from "./components/map";
 import Sidebar from "./components/Sidebar";
-import axios from "axios";
-
-const API_KEY = import.meta.env.VITE_APP_API_KEY; 
-const API_URL = "https://api.openweathermap.org/data/2.5/weather";
+import { fetchApiMeteo } from "./services/OpenWeatherApiCall"; 
 
 function App() {
-  // États pour la sidebar
-
-  // Etat pour sidebar ouvert ou ferme : par défaut est fermé
+  // --- ÉTATS ---
+  // État pour ouvrir/fermer la sidebar
   const [estSidebarOuvert, setEstSidebarOuvert] = useState(false);
-
-  // Etat pour chargement des donnees meteorologiques : par défaut pas chargé
+  // État pour stocker les données météo de l'API
   const [donneesAPI, setDonneesAPI] = useState(null);
-
-  // Etat pour spinner pendant chargement des donnees depuis l'API
+  // État pour le spinner de chargement
   const [chargement, setChargement] = useState(false);
-
-  // Etat pour les erreurs
+  // État pour gérer les erreurs
   const [erreur, setErreur] = useState(null);
 
-  // Fonction qui sera passée au MapSenegal
+
+  // --- FONCTIONS ---
+  
+  // Fonction appelée lors du clic sur une région de la carte
   const donneesRegionClick = async (regionName) => {
     setChargement(true);
     setErreur(null);
     setDonneesAPI(null);
-    setEstSidebarOuvert(true); 
+    setEstSidebarOuvert(true); // Ouvre la sidebar dès le clic
 
     try {
-      const response = await axios.get(API_URL, {
-        params: {
-          q: regionName,
-          appid: API_KEY,
-          units: "metric" 
-        }
-      });
-
-      setDonneesAPI(response.data);
+      // Appel de la fonction fetchApiMeteo avec le nom de la région
+      const data = await fetchApiMeteo(regionName);
+      setDonneesAPI(data); 
     } catch (err) {
-      console.error("Erreur API:", err);
-      setErreur(`Impossible de charger la météo pour ${regionName}. Vérifiez le nom.`);
+      // Gestion de l'erreur textuelle pour l'afficher dans la Sidebar
+      setErreur(err.message || "Impossible de récupérer les données météo.");
     } finally {
-      setChargement(false);
+      setChargement(false); 
     }
   };
 
+  // Ajout de la fonction pour fermer la sidebar (manquante dans votre code)
   const fermerSidebar = () => {
     setEstSidebarOuvert(false);
   };
@@ -54,11 +45,17 @@ function App() {
     <div className="container-fluid py-4">
       <h1 className="text-center mb-4 text-primary">AgriMeteo</h1>
       
-      {/* On passe la fonction donneesRegionClick au composant MapSenegal */}
+      {/* On passe la fonction au composant MapSenegal */}
       <MapSenegal onRegionClick={donneesRegionClick} />
 
-      {/* Le sidebar reçoit les données et l'état d'ouverture */}
-      <Sidebar etatSidebar={estSidebarOuvert} fermerSidebar={fermerSidebar} donneesAPI={donneesAPI} chargement={chargement} erreur={erreur}/>
+      {/* Le sidebar reçoit les données et les fonctions de contrôle */}
+      <Sidebar 
+        etatSidebar={estSidebarOuvert} 
+        fermerSidebar={fermerSidebar} 
+        donneesAPI={donneesAPI} 
+        chargement={chargement} 
+        erreur={erreur}
+      />
     </div>
   );
 }
