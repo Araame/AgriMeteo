@@ -4,7 +4,7 @@ const VITE_URL_METEO = 'https://api.openweathermap.org/data/2.5';
 export const fetchApiMeteo = async (city) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/weather?q=${city}&appid=${API_KEY}&units=metric&lang=fr`
+      `${VITE_URL_METEO}/weather?q=${city}&appid=${API_KEY}&units=metric&lang=fr`
     );
 
     if (!response.ok) {
